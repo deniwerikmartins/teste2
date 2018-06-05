@@ -69,16 +69,25 @@ foreach ($Precos as $key => $value) {
     }
 }
 
-array_unique($melhoresPrecos, SORT_REGULAR);
+$melhoresPrecos = array_unique($melhoresPrecos, SORT_REGULAR);
+array_multisort($melhoresPrecos);
 $mp2 = $melhoresPrecos;
 
+$indices = array();
 foreach ($mp2 as $key => $value){
     $nome = $value["Nome"];
     foreach ($mp2 as $chave => $valor){
         if ($nome === $valor["Nome"]){
             if ($value["TotalGeral"] > $valor["TotalGeral"]){
+                array_push($indices,$key);
 
             }
         }
     }
 }
+$indices = array_unique($indices);
+foreach ($indices as $value){
+    $removido = array_splice($mp2,$value,1);
+}
+
+echo("");
